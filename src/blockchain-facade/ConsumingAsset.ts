@@ -12,12 +12,12 @@ export const createAsset =
     async (assetProperties: OnChainProperties,
            assetPropertiesOffChain: Asset.OffChainProperties,
            configuration: GeneralLib.Configuration.Entity): Promise<Asset.Entity> => {
-        const consoumingAsset = new Entity(null, configuration);
+        const consumingAsset = new Entity(null, configuration);
         const offChainStorageProperties =
-            consoumingAsset.prepareEntityCreation(assetProperties, assetPropertiesOffChain, AssetOffChainPropertiesSchema);
+            consumingAsset.prepareEntityCreation(assetProperties, assetPropertiesOffChain, AssetOffChainPropertiesSchema);
 
         if (configuration.offChainDataSource) {
-            assetProperties.url = consoumingAsset.getUrl();
+            assetProperties.url = consumingAsset.getUrl();
             assetProperties.propertiesDocumentHash = offChainStorageProperties.rootHash;
         }
 
@@ -33,12 +33,12 @@ export const createAsset =
                 privateKey: configuration.blockchainProperties.activeUser.privateKey,
             });
 
-        consoumingAsset.id = configuration.blockchainProperties.web3.utils.hexToNumber(tx.logs[0].topics[1]).toString();
+        consumingAsset.id = configuration.blockchainProperties.web3.utils.hexToNumber(tx.logs[0].topics[1]).toString();
 
-        await consoumingAsset.putToOffChainStorage(assetPropertiesOffChain, offChainStorageProperties);
+        await consumingAsset.putToOffChainStorage(assetPropertiesOffChain, offChainStorageProperties);
 
-        configuration.logger.info(`Consuming asset ${consoumingAsset.id} created`);
-        return consoumingAsset.sync();
+        configuration.logger.info(`Consuming asset ${consumingAsset.id} created`);
+        return consumingAsset.sync();
 
     };
 
