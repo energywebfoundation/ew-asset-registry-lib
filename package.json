@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start-test-backend": "node node_modules/ewf-coo-test-backend/index.js",
-    "test": "npm run build-and-deploy && mocha build/ts/test/",
+    "test": "npm run build-ts && mocha dist/js/test/ --timeout 60000",
     "start-ganache": "ganache-cli -m 'chalk park staff buzz chair purchase wise oak receive avoid avoid home' -g 0 -l 80000000 -e 1000000 -a 20",
     "testlight": "npm run build-ts && mocha build/ts/test/",
     "debug-light-test": "npm run build-ts && mocha --inspect-brk build/ts/test/",
