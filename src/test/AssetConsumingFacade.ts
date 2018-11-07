@@ -13,7 +13,7 @@
 // GNU General Public License for more details, at <http://www.gnu.org/licenses/>.
 //
 // @authors: slock.it GmbH, Martin Kuechler, martin.kuechler@slock.it
-
+/*
 import { assert } from 'chai';
 import 'mocha';
 import Web3Type from '../types/web3';
@@ -27,8 +27,6 @@ import { AssetConsumingRegistryLogic } from '../contractWrapper/AssetConsumingRe
 import { logger } from './Logger';
 
 const Web3 = require('web3')
-
-
 
 describe('AssetConsumingLogic Facade', () => {
     let web3: Web3Type;
@@ -117,7 +115,5 @@ describe('AssetConsumingLogic Facade', () => {
 
     })
 
-
-
 });
-
+*/

@@ -1,7 +1,6 @@
-import * as Configuration from '../Configuration';
-
+import * as GeneralLib from 'ew-utils-general-lib';
+import * as Asset from './Asset';
 import * as AssetOffChainPropertiesSchema from '../../../schemas/AssetPropertiesOffChain.schema.json';
-import { Asset } from '..';
 
 export interface OnChainProperties extends Asset.OnChainProperties {
     // GeneralInformation
@@ -9,47 +8,46 @@ export interface OnChainProperties extends Asset.OnChainProperties {
 
 }
 
-export const createAsset = async (
+export const createAsset =
+    async (assetProperties: OnChainProperties,
+           assetPropertiesOffChain: Asset.OffChainProperties,
+           configuration: GeneralLib.Configuration.Entity): Promise<Asset.Entity> => {
+        const consoumingAsset = new Entity(null, configuration);
+        const offChainStorageProperties =
+            consoumingAsset.prepareEntityCreation(assetProperties, assetPropertiesOffChain, AssetOffChainPropertiesSchema);
 
-        assetProperties: OnChainProperties,
-        assetPropertiesOffChain: Asset.OffChainProperties,
-        configuration: Configuration.Entity
-    ): Promise<Asset.Entity> => {
-    const consoumingAsset = new Entity(null, configuration);
-    const offChainStorageProperties = consoumingAsset.prepareEntityCreation(assetProperties, assetPropertiesOffChain, AssetOffChainPropertiesSchema);
-        Asset 
-    if (configuration.offChainDataSource) {
-        assetProperties.url = consoumingAsset.getUrl();
-        assetProperties.propertiesDocumentHash = offChainStorageProperties.rootHash;
-    }
+        if (configuration.offChainDataSource) {
+            assetProperties.url = consoumingAsset.getUrl();
+            assetProperties.propertiesDocumentHash = offChainStorageProperties.rootHash;
+        }
 
-    const tx = await configuration.blockchainProperties.consumingAssetLogicInstance.createAsset(
-        assetProperties.smartMeter.address,
-        assetProperties.owner.address,
-        assetProperties.active,
-        assetProperties.matcher[0].address,
-        assetProperties.propertiesDocumentHash,
-        assetProperties.url,
-        {
-            from: configuration.blockchainProperties.activeUser.address,
-            privateKey: configuration.blockchainProperties.activeUser.privateKey,
-        });
+        const tx = await configuration.blockchainProperties.consumingAssetLogicInstance.createAsset(
+            assetProperties.smartMeter.address,
+            assetProperties.owner.address,
+            assetProperties.active,
+            assetProperties.matcher[0].address,
+            assetProperties.propertiesDocumentHash,
+            assetProperties.url,
+            {
+                from: configuration.blockchainProperties.activeUser.address,
+                privateKey: configuration.blockchainProperties.activeUser.privateKey,
+            });
 
-    consoumingAsset.id = configuration.blockchainProperties.web3.utils.hexToNumber(tx.logs[0].topics[1]).toString();
+        consoumingAsset.id = configuration.blockchainProperties.web3.utils.hexToNumber(tx.logs[0].topics[1]).toString();
 
-    await consoumingAsset.putToOffChainStorage(assetPropertiesOffChain, offChainStorageProperties);
+        await consoumingAsset.putToOffChainStorage(assetPropertiesOffChain, offChainStorageProperties);
 
-    configuration.logger.info(`Consuming asset ${consoumingAsset.id} created`);
-    return consoumingAsset.sync();
+        configuration.logger.info(`Consuming asset ${consoumingAsset.id} created`);
+        return consoumingAsset.sync();
 
-};
+    };
 
-export const getAssetListLength = async (configuration: Configuration.Entity) => {
+export const getAssetListLength = async (configuration: GeneralLib.Configuration.Entity) => {
 
     return parseInt(await configuration.blockchainProperties.consumingAssetLogicInstance.getAssetListLength(), 10);
 };
 
-export const  getAllAssets = async (configuration: Configuration.Entity) => {
+export const getAllAssets = async (configuration: GeneralLib.Configuration.Entity) => {
 
     const assetsPromises = Array(await getAssetListLength(configuration))
         .fill(null)
@@ -59,7 +57,7 @@ export const  getAllAssets = async (configuration: Configuration.Entity) => {
 
 };
 
-export const getAllAssetsOwnedBy = async (owner: string, configuration: Configuration.Entity) => {
+export const getAllAssetsOwnedBy = async (owner: string, configuration: GeneralLib.Configuration.Entity) => {
     return (await getAllAssets(configuration))
         .filter((asset: Entity) => asset.owner.address.toLowerCase() === owner.toLowerCase());
 };
@@ -67,7 +65,6 @@ export const getAllAssetsOwnedBy = async (owner: string, configuration: Configur
 export class Entity extends Asset.Entity implements OnChainProperties {
 
     getUrl(): string {
-
         return `${this.configuration.offChainDataSource.baseUrl}/ConsumingAsset`;
     }
 
