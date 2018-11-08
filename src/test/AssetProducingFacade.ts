@@ -23,7 +23,6 @@ import { logger } from '../Logger';
 import { UserContractLookup, UserLogic, migrateUserRegistryContracts } from 'ew-user-registry-contracts';
 import { migrateAssetRegistryContracts, AssetConsumingRegistryLogic, AssetProducingRegistryLogic } from 'ew-asset-registry-contracts';
 import * as Asset from '..';
-import * as ProducingAsset from '../blockchain-facade/ProducingAsset';
 
 describe('AssetProducing Facade', () => {
     const configFile = JSON.parse(fs.readFileSync(process.cwd() + '/connection-config.json', 'utf8'));
@@ -104,7 +103,7 @@ describe('AssetProducing Facade', () => {
             logger,
         };
 
-        const assetProps: ProducingAsset.OnChainProperties = {
+        const assetProps: Asset.ProducingAsset.OnChainProperties = {
             certificatesUsedForWh: 0,
             smartMeter: { address: assetSmartmeter },
             owner: { address: assetOwnerAddress },
@@ -119,7 +118,7 @@ describe('AssetProducing Facade', () => {
             maxOwnerChanges: 3,
         };
 
-        const assetPropsOffChain: ProducingAsset.OffChainProperties = {
+        const assetPropsOffChain: Asset.ProducingAsset.OffChainProperties = {
             operationalSince: 0,
             capacityWh: 10,
             country: 'bla',
@@ -130,15 +129,15 @@ describe('AssetProducing Facade', () => {
             houseNumber: 'bla',
             gpsLatitude: 'bla',
             gpsLongitude: 'bla',
-            assetType: ProducingAsset.Type.Wind,
-            complianceRegistry: ProducingAsset.Compliance.EEC,
+            assetType: Asset.ProducingAsset.Type.Wind,
+            complianceRegistry: Asset.ProducingAsset.Compliance.EEC,
             otherGreenAttributes: '',
             typeOfPublicSupport: '',
         };
 
-        assert.equal(await ProducingAsset.getAssetListLength(conf), 0);
+        assert.equal(await Asset.ProducingAsset.getAssetListLength(conf), 0);
 
-        const asset = await ProducingAsset.createAsset(assetProps, assetPropsOffChain, conf);
+        const asset = await Asset.ProducingAsset.createAsset(assetProps, assetPropsOffChain, conf);
         delete asset.configuration;
         delete asset.proofs;
         delete asset.propertiesDocumentHash;
@@ -156,13 +155,13 @@ describe('AssetProducing Facade', () => {
             maxOwnerChanges: '3',
             url: 'http://localhost:3030/ProducingAsset',
         } as any,        asset);
-        assert.equal(await ProducingAsset.getAssetListLength(conf), 1);
+        assert.equal(await Asset.ProducingAsset.getAssetListLength(conf), 1);
 
     });
 
     it('should fail when trying to onboard the same asset again', async () => {
 
-        const assetProps: ProducingAsset.OnChainProperties = {
+        const assetProps: Asset.ProducingAsset.OnChainProperties = {
             certificatesUsedForWh: 0,
             smartMeter: { address: assetSmartmeter },
             owner: { address: assetOwnerAddress },
@@ -177,7 +176,7 @@ describe('AssetProducing Facade', () => {
             maxOwnerChanges: 3,
         };
 
-        const assetPropsOffChain: ProducingAsset.OffChainProperties = {
+        const assetPropsOffChain: Asset.ProducingAsset.OffChainProperties = {
             operationalSince: 0,
             capacityWh: 10,
             country: 'USA',
@@ -188,20 +187,20 @@ describe('AssetProducing Facade', () => {
             houseNumber: '42',
             gpsLatitude: '0.0123123',
             gpsLongitude: '31.1231',
-            assetType: ProducingAsset.Type.Wind,
-            complianceRegistry: ProducingAsset.Compliance.EEC,
+            assetType: Asset.ProducingAsset.Type.Wind,
+            complianceRegistry: Asset.ProducingAsset.Compliance.EEC,
             otherGreenAttributes: '',
             typeOfPublicSupport: '',
         };
 
-        assert.equal(await ProducingAsset.getAssetListLength(conf), 1);
+        assert.equal(await Asset.ProducingAsset.getAssetListLength(conf), 1);
 
         try {
-            const asset = await ProducingAsset.createAsset(assetProps, assetPropsOffChain, conf);
+            const asset = await Asset.ProducingAsset.createAsset(assetProps, assetPropsOffChain, conf);
         } catch (ex) {
             assert.include(ex.message, 'smartmeter does already exist');
         }
-        assert.equal(await ProducingAsset.getAssetListLength(conf), 1);
+        assert.equal(await Asset.ProducingAsset.getAssetListLength(conf), 1);
 
     });
 
