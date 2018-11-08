@@ -153,7 +153,7 @@ describe('AssetConsumingLogic Facade', () => {
 
     });
 
-    it('should onboard a new asset', async () => {
+    it('should fail when onboarding the same asset again', async () => {
 
         const assetProps: Asset.OnChainProperties = {
             certificatesUsedForWh: 0,

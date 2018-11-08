@@ -160,4 +160,49 @@ describe('AssetProducing Facade', () => {
 
     });
 
+    it('should fail when trying to onboard the same asset again', async () => {
+
+        const assetProps: ProducingAsset.OnChainProperties = {
+            certificatesUsedForWh: 0,
+            smartMeter: { address: assetSmartmeter },
+            owner: { address: assetOwnerAddress },
+            lastSmartMeterReadWh: 0,
+            active: true,
+            lastSmartMeterReadFileHash: 'lastSmartMeterReadFileHash',
+            matcher: [{ address: matcher }],
+            propertiesDocumentHash: null,
+            url: null,
+            certificatesCreatedForWh: 0,
+            lastSmartMeterCO2OffsetRead: 0,
+            maxOwnerChanges: 3,
+        };
+
+        const assetPropsOffChain: ProducingAsset.OffChainProperties = {
+            operationalSince: 0,
+            capacityWh: 10,
+            country: 'USA',
+            region: 'AnyState',
+            zip: '012345',
+            city: 'Anytown',
+            street: 'Main-Street',
+            houseNumber: '42',
+            gpsLatitude: '0.0123123',
+            gpsLongitude: '31.1231',
+            assetType: ProducingAsset.Type.Wind,
+            complianceRegistry: ProducingAsset.Compliance.EEC,
+            otherGreenAttributes: '',
+            typeOfPublicSupport: '',
+        };
+
+        assert.equal(await ProducingAsset.getAssetListLength(conf), 1);
+
+        try {
+            const asset = await ProducingAsset.createAsset(assetProps, assetPropsOffChain, conf);
+        } catch (ex) {
+            assert.include(ex.message, 'smartmeter does already exist');
+        }
+        assert.equal(await ProducingAsset.getAssetListLength(conf), 1);
+
+    });
+
 });
