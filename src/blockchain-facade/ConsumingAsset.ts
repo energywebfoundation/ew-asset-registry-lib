@@ -1,6 +1,6 @@
 import * as GeneralLib from 'ew-utils-general-lib';
 import * as Asset from './Asset';
-import * as AssetOffChainPropertiesSchema from '../../../schemas/AssetPropertiesOffChain.schema.json';
+import * as AssetOffChainPropertiesSchema from '../../schemas/AssetPropertiesOffChain.schema.json';
 
 export interface OnChainProperties extends Asset.OnChainProperties {
     // GeneralInformation
@@ -21,11 +21,17 @@ export const createAsset =
             assetProperties.propertiesDocumentHash = offChainStorageProperties.rootHash;
         }
 
+        const addressArray = [];
+
+        for (const e of assetProperties.matcher) {
+            addressArray.push(e.address);
+        }
+
         const tx = await configuration.blockchainProperties.consumingAssetLogicInstance.createAsset(
             assetProperties.smartMeter.address,
             assetProperties.owner.address,
             assetProperties.active,
-            assetProperties.matcher[0].address,
+            addressArray,
             assetProperties.propertiesDocumentHash,
             assetProperties.url,
             {
@@ -38,6 +44,7 @@ export const createAsset =
         await consumingAsset.putToOffChainStorage(assetPropertiesOffChain, offChainStorageProperties);
 
         configuration.logger.info(`Consuming asset ${consumingAsset.id} created`);
+
         return consumingAsset.sync();
 
     };
@@ -65,22 +72,22 @@ export const getAllAssetsOwnedBy = async (owner: string, configuration: GeneralL
 export class Entity extends Asset.Entity implements OnChainProperties {
 
     getUrl(): string {
+
         return `${this.configuration.offChainDataSource.baseUrl}/ConsumingAsset`;
     }
 
     async sync(): Promise<Entity> {
-        const asset = await this.configuration.blockchainProperties.consumingAssetLogicInstance.getAsset(this.id);
+        const asset = await this.configuration.blockchainProperties.consumingAssetLogicInstance.getAssetById(this.id);
 
         if (this.id != null) {
-            this.certificatesUsedForWh = asset._certificatesUsedForWh;
-            this.smartMeter = { address: asset._smartMeter };
-            this.owner = { address: asset._owner };
-            this.lastSmartMeterReadWh = asset._lastSmartMeterReadWh;
-            this.active = asset._active;
-            this.lastSmartMeterReadFileHash = asset._lastSmartMeterReadFileHash;
-            this.matcher = [{ address: asset._matcher }];
-            this.propertiesDocumentHash = asset._propertiesDocumentHash;
-            this.url = asset._url;
+            this.smartMeter = { address: asset.assetGeneral.smartMeter };
+            this.owner = { address: asset.assetGeneral.owner };
+            this.lastSmartMeterReadWh = asset.assetGeneral.lastSmartMeterReadWh;
+            this.active = asset.assetGeneral.active;
+            this.lastSmartMeterReadFileHash = asset.assetGeneral.lastSmartMeterReadFileHash;
+            this.matcher = [{ address: asset.assetGeneral.matcher }];
+            this.propertiesDocumentHash = asset.assetGeneral.propertiesDocumentHash;
+            this.url = asset.assetGeneral.url;
             this.initialized = true;
 
             this.offChainProperties = await this.getOffChainProperties(this.propertiesDocumentHash);

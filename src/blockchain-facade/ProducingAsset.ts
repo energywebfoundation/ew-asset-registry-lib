@@ -1,6 +1,6 @@
 import * as GeneralLib from 'ew-utils-general-lib';
 import * as Asset from './Asset';
-import * as ProducingAssetOffChainPropertiesSchema from '../../../schemas/ProducingAssetPropertiesOffChain.schema.json';
+import * as ProducingAssetOffChainPropertiesSchema from '../../schemas/ProducingAssetPropertiesOffChain.schema.json';
 
 export enum Type {
     Wind,
@@ -64,11 +64,29 @@ export const createAsset =
             assetPropertiesOnChain.propertiesDocumentHash = offChainStorageProperties.rootHash;
         }
 
+        const addressArray = [];
+        for (const e of assetPropertiesOnChain.matcher) {
+            addressArray.push(e.address);
+        }
+        const tx = await configuration.blockchainProperties.producingAssetLogicInstance.createAsset(
+            assetPropertiesOnChain.smartMeter.address,
+            assetPropertiesOnChain.owner.address,
+            assetPropertiesOnChain.active,
+            addressArray,
+            assetPropertiesOnChain.propertiesDocumentHash,
+            assetPropertiesOnChain.url,
+            assetPropertiesOnChain.maxOwnerChanges,
+            {
+                from: configuration.blockchainProperties.activeUser.address,
+                privateKey: configuration.blockchainProperties.activeUser.privateKey,
+            },
+        );
+        /*
         const tx = await configuration.blockchainProperties.producingAssetLogicInstance.createAsset(
             assetPropertiesOnChain.smartMeter.address,
             assetPropertiesOnChain.owner.address,
             assetPropertiesOnChain.maxOwnerChanges,
-            assetPropertiesOnChain.matcher[0].address,
+            addressArray,
             assetPropertiesOnChain.active,
             assetPropertiesOnChain.propertiesDocumentHash,
             assetPropertiesOnChain.url,
@@ -76,7 +94,7 @@ export const createAsset =
                 from: configuration.blockchainProperties.activeUser.address,
                 privateKey: configuration.blockchainProperties.activeUser.privateKey,
             });
-
+*/
         producingAsset.id = configuration.blockchainProperties.web3.utils.hexToNumber(tx.logs[0].topics[1]).toString();
 
         await producingAsset.putToOffChainStorage(assetPropertiesOffChain, offChainStorageProperties);
@@ -100,8 +118,9 @@ export class Entity extends Asset.Entity implements OnChainProperties {
     async sync(): Promise<Entity> {
         if (this.id != null) {
 
-            const asset = await this.configuration.blockchainProperties.producingAssetLogicInstance.getAsset(this.id);
+            const asset = await this.configuration.blockchainProperties.producingAssetLogicInstance.getAssetById(this.id);
 
+            /*
             this.certificatesUsedForWh = asset._certificatesUsedForWh;
             this.smartMeter = asset._smartMeter;
             this.owner = asset._owner;
@@ -114,6 +133,20 @@ export class Entity extends Asset.Entity implements OnChainProperties {
             this.maxOwnerChanges = asset._maxOwnerChanges;
             this.propertiesDocumentHash = asset._propertiesDocumentHash;
             this.url = asset._url;
+
+            this.offChainProperties = await this.getOffChainProperties(this.propertiesDocumentHash);
+            this.configuration.logger.verbose(`Producing asset ${this.id} synced`);
+            */
+            this.smartMeter = { address: asset.assetGeneral.smartMeter };
+            this.owner = { address: asset.assetGeneral.owner };
+            this.lastSmartMeterReadWh = asset.assetGeneral.lastSmartMeterReadWh;
+            this.active = asset.assetGeneral.active;
+            this.lastSmartMeterReadFileHash = asset.assetGeneral.lastSmartMeterReadFileHash;
+            this.matcher = [{ address: asset.assetGeneral.matcher }];
+            this.propertiesDocumentHash = asset.assetGeneral.propertiesDocumentHash;
+            this.url = asset.assetGeneral.url;
+            this.initialized = true;
+            this.maxOwnerChanges = asset.maxOwnerChanges;
 
             this.offChainProperties = await this.getOffChainProperties(this.propertiesDocumentHash);
             this.configuration.logger.verbose(`Producing asset ${this.id} synced`);
