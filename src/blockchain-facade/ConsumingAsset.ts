@@ -21,17 +21,11 @@ export const createAsset =
             assetProperties.propertiesDocumentHash = offChainStorageProperties.rootHash;
         }
 
-        const addressArray = [];
-
-        for (const e of assetProperties.matcher) {
-            addressArray.push(e.address);
-        }
-
         const tx = await configuration.blockchainProperties.consumingAssetLogicInstance.createAsset(
             assetProperties.smartMeter.address,
             assetProperties.owner.address,
             assetProperties.active,
-            addressArray,
+            assetProperties.matcher.map((matcher) => matcher.address),
             assetProperties.propertiesDocumentHash,
             assetProperties.url,
             {

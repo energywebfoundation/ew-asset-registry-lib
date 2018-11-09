@@ -64,15 +64,11 @@ export const createAsset =
             assetPropertiesOnChain.propertiesDocumentHash = offChainStorageProperties.rootHash;
         }
 
-        const addressArray = [];
-        for (const e of assetPropertiesOnChain.matcher) {
-            addressArray.push(e.address);
-        }
         const tx = await configuration.blockchainProperties.producingAssetLogicInstance.createAsset(
             assetPropertiesOnChain.smartMeter.address,
             assetPropertiesOnChain.owner.address,
             assetPropertiesOnChain.active,
-            addressArray,
+            assetPropertiesOnChain.matcher.map((matcher) => matcher.address),
             assetPropertiesOnChain.propertiesDocumentHash,
             assetPropertiesOnChain.url,
             assetPropertiesOnChain.maxOwnerChanges,
@@ -120,23 +116,6 @@ export class Entity extends Asset.Entity implements OnChainProperties {
 
             const asset = await this.configuration.blockchainProperties.producingAssetLogicInstance.getAssetById(this.id);
 
-            /*
-            this.certificatesUsedForWh = asset._certificatesUsedForWh;
-            this.smartMeter = asset._smartMeter;
-            this.owner = asset._owner;
-            this.lastSmartMeterReadWh = asset._lastSmartMeterReadWh;
-            this.active = asset._active;
-            this.lastSmartMeterReadFileHash = asset._lastSmartMeterReadFileHash;
-            this.matcher = asset._matcher;
-            this.certificatesCreatedForWh = asset._certificatesCreatedForWh;
-            this.lastSmartMeterCO2OffsetRead = asset._lastSmartMeterCO2OffsetRead;
-            this.maxOwnerChanges = asset._maxOwnerChanges;
-            this.propertiesDocumentHash = asset._propertiesDocumentHash;
-            this.url = asset._url;
-
-            this.offChainProperties = await this.getOffChainProperties(this.propertiesDocumentHash);
-            this.configuration.logger.verbose(`Producing asset ${this.id} synced`);
-            */
             this.smartMeter = { address: asset.assetGeneral.smartMeter };
             this.owner = { address: asset.assetGeneral.owner };
             this.lastSmartMeterReadWh = asset.assetGeneral.lastSmartMeterReadWh;
