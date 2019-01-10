@@ -106,6 +106,7 @@ export class Entity extends Asset.Entity implements OnChainProperties {
     certificatesCreatedForWh: number;
     lastSmartMeterCO2OffsetRead: number;
     maxOwnerChanges: number;
+    offChainProperties: OffChainProperties;
 
     getUrl(): string {
         return `${this.configuration.offChainDataSource.baseUrl}/ProducingAsset`;
