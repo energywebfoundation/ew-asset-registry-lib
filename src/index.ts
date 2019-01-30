@@ -11,5 +11,5 @@ export {
     Asset,
     AssetPropertiesOffchainSchema,
     ProducingAssetPropertiesOffchainSchema,
-    createBlockchainProperties 
+    createBlockchainProperties,
 };
