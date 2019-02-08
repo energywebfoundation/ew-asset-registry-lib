@@ -42,7 +42,7 @@
     "ew-user-registry-lib": "v0.0.17-beta6",
     "ew-utils-general-lib": "v0.0.9-beta01",
     "ew-utils-testbackend": "0.0.3",
-    "web3": "^1.0.0-beta.37",
+    "web3": "1.0.0-beta.37",
     "winston": "^3.0.0"
   },
   "devDependencies": {

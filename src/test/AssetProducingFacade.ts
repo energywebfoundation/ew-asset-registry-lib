@@ -16,7 +16,7 @@
 
 import { assert } from 'chai';
 import * as fs from 'fs';
-import Web3 = require('web3');
+import Web3 from 'web3';
 import 'mocha';
 import * as GeneralLib from 'ew-utils-general-lib';
 import { logger } from '../Logger';
