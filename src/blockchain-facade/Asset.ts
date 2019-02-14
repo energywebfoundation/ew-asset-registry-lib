@@ -17,7 +17,7 @@
 import * as GeneralLib from 'ew-utils-general-lib';
 
 export interface OnChainProperties extends GeneralLib.BlockchainDataModelEntity.OnChainProperties {
-    certificatesUsedForWh: number;
+    // certificatesUsedForWh: number;
     smartMeter: GeneralLib.Configuration.EthAccount;
     owner: GeneralLib.Configuration.EthAccount;
     lastSmartMeterReadWh: number;

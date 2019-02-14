@@ -103,7 +103,6 @@ describe('AssetProducing Facade', () => {
         };
 
         const assetProps: Asset.ProducingAsset.OnChainProperties = {
-            certificatesUsedForWh: 0,
             smartMeter: { address: assetSmartmeter },
             owner: { address: assetOwnerAddress },
             lastSmartMeterReadWh: 0,
@@ -112,8 +111,6 @@ describe('AssetProducing Facade', () => {
             matcher: [{ address: matcher }],
             propertiesDocumentHash: null,
             url: null,
-            certificatesCreatedForWh: 0,
-            lastSmartMeterCO2OffsetRead: 0,
             maxOwnerChanges: 3,
         };
 
@@ -161,7 +158,6 @@ describe('AssetProducing Facade', () => {
     it('should fail when trying to onboard the same asset again', async () => {
 
         const assetProps: Asset.ProducingAsset.OnChainProperties = {
-            certificatesUsedForWh: 0,
             smartMeter: { address: assetSmartmeter },
             owner: { address: assetOwnerAddress },
             lastSmartMeterReadWh: 0,
@@ -170,8 +166,6 @@ describe('AssetProducing Facade', () => {
             matcher: [{ address: matcher }],
             propertiesDocumentHash: null,
             url: null,
-            certificatesCreatedForWh: 0,
-            lastSmartMeterCO2OffsetRead: 0,
             maxOwnerChanges: 3,
         };
 

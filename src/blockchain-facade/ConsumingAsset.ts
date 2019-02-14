@@ -20,9 +20,7 @@ import { AssetPropertiesOffchainSchema } from '..';
 import { TransactionReceipt } from 'web3/types';
 
 export interface OnChainProperties extends Asset.OnChainProperties {
-    // GeneralInformation
     certificatesUsedForWh: number;
-
 }
 
 export const createAsset =
@@ -82,7 +80,7 @@ export const getAllAssetsOwnedBy = async (owner: string, configuration: GeneralL
         .filter((asset: Entity) => asset.owner.address.toLowerCase() === owner.toLowerCase());
 };
 
-export class Entity extends Asset.Entity implements OnChainProperties {
+export class Entity extends Asset.Entity implements Asset.OnChainProperties {
 
     getUrl(): string {
 
