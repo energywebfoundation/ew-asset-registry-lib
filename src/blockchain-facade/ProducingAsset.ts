@@ -19,6 +19,9 @@ import * as Asset from './Asset';
 import { ProducingAssetPropertiesOffchainSchema } from '..';
 import { TransactionReceipt } from 'web3/types';
 
+/**
+ * TODO: in generalLib
+ */
 export enum Type {
     Wind,
     Solar,
@@ -34,9 +37,6 @@ export enum Compliance {
 }
 
 export interface OnChainProperties extends Asset.OnChainProperties {
-
-    certificatesCreatedForWh?: number;
-    lastSmartMeterCO2OffsetRead?: number;
     maxOwnerChanges?: number;
 }
 

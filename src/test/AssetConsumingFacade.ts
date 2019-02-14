@@ -152,7 +152,7 @@ describe('AssetConsumingLogic Facade', () => {
 
     it('should fail when onboarding the same asset again', async () => {
 
-        const assetProps: Asset.Asset.OnChainProperties = {
+        const assetProps: Asset.ConsumingAsset.OnChainProperties = {
             certificatesUsedForWh: 0,
             smartMeter: { address: assetSmartmeter },
             owner: { address: assetOwnerAddress },
