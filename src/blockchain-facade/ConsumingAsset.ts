@@ -27,11 +27,11 @@ export interface OnChainProperties extends Asset.OnChainProperties {
 
 export const createAsset =
     async (assetProperties: OnChainProperties,
-           assetPropertiesOffChain: Asset.OffChainProperties,
-           configuration: GeneralLib.Configuration.Entity): Promise<Asset.Entity> => {
+        assetPropertiesOffChain: Asset.OffChainProperties,
+        configuration: GeneralLib.Configuration.Entity): Promise<Asset.Entity> => {
         const consumingAsset = new Entity(null, configuration);
         const offChainStorageProperties =
-            consumingAsset.prepareEntityCreation(assetProperties, assetPropertiesOffChain, AssetPropertiesOffchainSchema, false);
+            consumingAsset.prepareEntityCreation(assetProperties, assetPropertiesOffChain, AssetPropertiesOffchainSchema);
 
         if (configuration.offChainDataSource) {
             assetProperties.url = consumingAsset.getUrl();
