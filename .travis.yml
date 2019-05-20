@@ -7,7 +7,7 @@ node_js:
 install:
   - npm install
   - npm run compile
-  - npm run build-schemas
+  - npm run build
 
 before_script:
   - npm run start-ganache > /dev/null &
@@ -15,5 +15,4 @@ before_script:
  
 script:
   # - npm run lint
-  - npm run deploy-contracts
-  - npm run build-ts
+  - npm run test

@@ -16,7 +16,7 @@
     "start-ganache": "ganache-cli -m 'chalk park staff buzz chair purchase wise oak receive avoid avoid home' -g 0 -l 80000000 -e 1000000 -a 20",
     "build-and-deploy": "npm run build && npm run deploy-contracts",
     "compile-contracts": "node build/ts/utils/deployment/compile",
-    "build-ts": "rm -rf dist/js && node_modules/typescript/bin/tsc",
+    "build-ts": "rm -rf dist/js && tsc",
     "prebuild-schemas": "rm -rf dist/schemas && mkdir -p dist/schemas && rm -rf schemas && mkdir schemas",
     "build-schemas": "npm run build-schema:AssetPropertiesOffChain && npm run build-schema:ProducingAssetPropertiesOffChain && cp -R schemas dist/schemas",
     "build-schema:AssetPropertiesOffChain": "typescript-json-schema --ignoreErrors --required src/blockchain-facade/Asset.ts OffChainProperties > schemas/AssetPropertiesOffChain.schema.json ",
@@ -37,19 +37,16 @@
   },
   "homepage": "https://github.com/energywebfoundation/ew-asset-registry-lib#readme",
   "dependencies": {
-    "ew-user-registry-lib": "1.0.2",
-    "ew-utils-general-lib": "1.0.1",
-    "ew-utils-testbackend": "v0.0.99",
-    "web3": "1.0.0-beta.37",
-    "winston": "3.2.1"
-  },
-  "devDependencies": {
     "@types/chai": "4.1.4",
     "@types/mocha": "2.2.48",
     "@types/node": "9.6.28",
     "@types/web3": "1.0.14",
     "chai": "4.1.2",
     "ethlint": "1.2.4",
+    "ew-user-registry-lib": "energywebfoundation/ew-user-registry-lib#c47ae92eebc8f26f3ed734bf64529a983deb3987",
+    "ew-utils-general-lib": "1.0.1",
+    "ew-utils-testbackend": "v0.0.99",
+    "fs-extra": "8.0.1",
     "ganache-cli": "6.1.8",
     "lint-staged": "8.1.7",
     "mocha": "5.2.0",
@@ -60,7 +57,12 @@
     "tslint-lines-between-class-members": "1.3.1",
     "tslint-sonarts": "1.9.0",
     "typescript": "2.9.2",
-    "typescript-json-schema": "0.31.0"
+    "typescript-json-schema": "0.31.0",
+    "web3": "1.0.0-beta.37",
+    "winston": "3.2.1"
   },
-  "postinstall": "rm -f node_modules/web3/index.d.ts"
+  "postinstall": "rm -f node_modules/web3/index.d.ts",
+  "bin": {
+    "ew-asset-registry-lib-build": "./scripts/build.js"
+  }
 }
