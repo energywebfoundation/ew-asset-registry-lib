@@ -148,7 +148,7 @@ describe('AssetProducing Facade', () => {
             matcher: [{ address: [matcher] }],
             offChainProperties: assetPropsOffChain,
             maxOwnerChanges: '3',
-            url: 'http://localhost:3030/ProducingAsset',
+            url: `http://localhost:3030/ProducingAsset/${assetProducingLogic.web3Contract._address}`,
         } as any,        asset);
         assert.equal(await Asset.ProducingAsset.getAssetListLength(conf), 1);
 
@@ -220,7 +220,7 @@ describe('AssetProducing Facade', () => {
             active: true,
             lastSmartMeterReadFileHash: 'newFileHash',
             matcher: [{ address: [matcher] }],
-            url: 'http://localhost:3030/ProducingAsset',
+            url: `http://localhost:3030/ProducingAsset/${assetProducingLogic.web3Contract._address}`,
             maxOwnerChanges: '3',
             offChainProperties:
             {
