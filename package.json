@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/energywebfoundation/ew-asset-registry-lib#readme",
   "dependencies": {
-    "ew-user-registry-lib": "energywebfoundation/ew-user-registry-lib.git#b6fa81bd8e7c783f23a7d5770bc7116c242f3e3b",
+    "ew-user-registry-lib": "energywebfoundation/ew-user-registry-lib.git#f583ae76bdd7c4811b87922df36645ffe8d1c098",
     "ew-utils-general-lib": "1.0.1",
     "ew-utils-testbackend": "energywebfoundation/ew-utils-testbackend#f4448692bebfe5019570533114557a943319ff2d",
     "web3": "1.0.0-beta.37",
@@ -65,6 +65,7 @@
   },
   "postinstall": "rm -f node_modules/web3/index.d.ts",
   "files": [
+    "contracts",
     "dist"
   ]
 }
