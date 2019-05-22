@@ -42,7 +42,7 @@
     "@types/web3": "1.0.14",
     "chai": "4.1.2",
     "ethlint": "1.2.4",
-    "ew-user-registry-lib": "git+ssh://git@github.com:energywebfoundation/ew-user-registry-lib.git#0f097833300677bc3b562cdcf9b7ca7588ffd762",
+    "ew-user-registry-lib": "energywebfoundation/ew-user-registry-lib.git#0f097833300677bc3b562cdcf9b7ca7588ffd762",
     "ew-utils-general-lib": "1.0.1",
     "ew-utils-testbackend": "v0.0.99",
     "fs-extra": "8.0.1",
