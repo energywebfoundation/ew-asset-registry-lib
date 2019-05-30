@@ -38,8 +38,8 @@
   "homepage": "https://github.com/energywebfoundation/ew-asset-registry-lib#readme",
   "dependencies": {
     "ew-user-registry-lib": "energywebfoundation/ew-user-registry-lib.git#5a41bd1197b73aa70db2f9a33b5332c04c505c3d",
-    "ew-utils-general-lib": "energywebfoundation/ew-utils-general-lib#64d03f9032f9fb90b7cec499c3e6a1073bb1086b",
-    "ew-utils-testbackend": "energywebfoundation/ew-utils-testbackend#303d74ba40a1a3e3e104e1d7650a6962b868ef0e",
+    "ew-utils-general-lib": "energywebfoundation/ew-utils-general-lib#d54e4e2db3732554a9fe34c0f4c5b7dd17aae7cb",
+    "ew-utils-testbackend": "energywebfoundation/ew-utils-testbackend#eaeb4872711c5873d5e7dd7e397eb426898be784",
     "web3": "1.0.0-beta.37",
     "winston": "3.2.1"
   },
