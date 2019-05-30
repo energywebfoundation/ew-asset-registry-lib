@@ -14,7 +14,7 @@
 //
 // @authors: slock.it GmbH; Heiko Burkhardt, heiko.burkhardt@slock.it; Martin Kuechler, martin.kuchler@slock.it
 
-import * as GeneralLib from 'ew-utils-general-lib';
+import { Configuration } from 'ew-utils-general-lib';
 import * as Asset from './Asset';
 import { ProducingAssetPropertiesOffchainSchema } from '..';
 import { TransactionReceipt } from 'web3/types';
@@ -47,12 +47,12 @@ export interface IOffChainProperties extends Asset.IOffChainProperties {
     typeOfPublicSupport: string;
 }
 
-export const getAssetListLength = async (configuration: GeneralLib.Configuration.Entity) => {
+export const getAssetListLength = async (configuration: Configuration.Entity) => {
 
     return parseInt(await configuration.blockchainProperties.producingAssetLogicInstance.getAssetListLength(), 10);
 };
 
-export const getAllAssets = async (configuration: GeneralLib.Configuration.Entity) => {
+export const getAllAssets = async (configuration: Configuration.Entity) => {
 
     const assetsPromises = Array(await getAssetListLength(configuration))
         .fill(null)
@@ -62,7 +62,7 @@ export const getAllAssets = async (configuration: GeneralLib.Configuration.Entit
 
 };
 
-export const getAllAssetsOwnedBy = async (owner: string, configuration: GeneralLib.Configuration.Entity) => {
+export const getAllAssetsOwnedBy = async (owner: string, configuration: Configuration.Entity) => {
     return (await getAllAssets(configuration))
         .filter((asset: Entity) => asset.owner.address.toLowerCase() === owner.toLowerCase());
 };
@@ -70,7 +70,7 @@ export const getAllAssetsOwnedBy = async (owner: string, configuration: GeneralL
 export const createAsset =
     async (assetPropertiesOnChain: IOnChainProperties,
            assetPropertiesOffChain: IOffChainProperties,
-           configuration: GeneralLib.Configuration.Entity): Promise<Entity> => {
+           configuration: Configuration.Entity): Promise<Entity> => {
         const producingAsset = new Entity(null, configuration);
         const offChainStorageProperties =
             producingAsset.prepareEntityCreation(assetPropertiesOnChain, assetPropertiesOffChain, ProducingAssetPropertiesOffchainSchema);

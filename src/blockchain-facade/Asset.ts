@@ -14,17 +14,16 @@
 //
 // @authors: slock.it GmbH; Heiko Burkhardt, heiko.burkhardt@slock.it; Martin Kuechler, martin.kuchler@slock.it
 
-import * as GeneralLib from 'ew-utils-general-lib';
+import { BlockchainDataModelEntity, Configuration } from 'ew-utils-general-lib';
 
-export interface IOnChainProperties extends GeneralLib.BlockchainDataModelEntity.IOnChainProperties {
+export interface IOnChainProperties extends BlockchainDataModelEntity.IOnChainProperties {
     // certificatesUsedForWh: number;
-    smartMeter: GeneralLib.Configuration.EthAccount;
-    owner: GeneralLib.Configuration.EthAccount;
+    smartMeter: Configuration.EthAccount;
+    owner: Configuration.EthAccount;
     lastSmartMeterReadWh: number;
     active: boolean;
     lastSmartMeterReadFileHash: string;
-    matcher: GeneralLib.Configuration.EthAccount[];
-
+    matcher: Configuration.EthAccount[];
 }
 
 export interface IOffChainProperties {
@@ -40,25 +39,25 @@ export interface IOffChainProperties {
     gpsLongitude: string;
 }
 
-export abstract class Entity extends GeneralLib.BlockchainDataModelEntity.Entity
+export abstract class Entity extends BlockchainDataModelEntity.Entity
     implements IOnChainProperties {
 
     offChainProperties: IOffChainProperties;
     certificatesUsedForWh: number;
-    smartMeter: GeneralLib.Configuration.EthAccount;
-    owner: GeneralLib.Configuration.EthAccount;
+    smartMeter: Configuration.EthAccount;
+    owner: Configuration.EthAccount;
     lastSmartMeterReadWh: number;
     lastSmartMeterReadFileHash: string;
-    matcher: GeneralLib.Configuration.EthAccount[];
+    matcher: Configuration.EthAccount[];
     propertiesDocumentHash: string;
     url: string;
     active: boolean;
 
     initialized: boolean;
 
-    configuration: GeneralLib.Configuration.Entity;
+    configuration: Configuration.Entity;
 
-    constructor(id: string, configuration: GeneralLib.Configuration.Entity) {
+    constructor(id: string, configuration: Configuration.Entity) {
         super(id, configuration);
 
         this.initialized = false;
