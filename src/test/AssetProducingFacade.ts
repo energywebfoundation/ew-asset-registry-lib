@@ -101,7 +101,7 @@ describe('AssetProducing Facade', () => {
             logger,
         };
 
-        const assetProps: Asset.ProducingAsset.OnChainProperties = {
+        const assetProps: Asset.ProducingAsset.IOnChainProperties = {
             smartMeter: { address: assetSmartmeter },
             owner: { address: assetOwnerAddress },
             lastSmartMeterReadWh: 0,
@@ -113,7 +113,7 @@ describe('AssetProducing Facade', () => {
             maxOwnerChanges: 3,
         };
 
-        const assetPropsOffChain: Asset.ProducingAsset.OffChainProperties = {
+        const assetPropsOffChain: Asset.ProducingAsset.IOffChainProperties = {
             operationalSince: 0,
             capacityWh: 10,
             country: 'USA',
@@ -156,7 +156,7 @@ describe('AssetProducing Facade', () => {
 
     it('should fail when trying to onboard the same asset again', async () => {
 
-        const assetProps: Asset.ProducingAsset.OnChainProperties = {
+        const assetProps: Asset.ProducingAsset.IOnChainProperties = {
             smartMeter: { address: assetSmartmeter },
             owner: { address: assetOwnerAddress },
             lastSmartMeterReadWh: 0,
@@ -168,7 +168,7 @@ describe('AssetProducing Facade', () => {
             maxOwnerChanges: 3,
         };
 
-        const assetPropsOffChain: Asset.ProducingAsset.OffChainProperties = {
+        const assetPropsOffChain: Asset.ProducingAsset.IOffChainProperties = {
             operationalSince: 0,
             capacityWh: 10,
             country: 'USA',

@@ -19,13 +19,13 @@ import * as Asset from './Asset';
 import { AssetPropertiesOffchainSchema } from '..';
 import { TransactionReceipt } from 'web3/types';
 
-export interface OnChainProperties extends Asset.OnChainProperties {
+export interface IOnChainProperties extends Asset.IOnChainProperties {
     certificatesUsedForWh: number;
 }
 
 export const createAsset =
-    async (assetProperties: OnChainProperties,
-           assetPropertiesOffChain: Asset.OffChainProperties,
+    async (assetProperties: IOnChainProperties,
+           assetPropertiesOffChain: Asset.IOffChainProperties,
            configuration: GeneralLib.Configuration.Entity): Promise<Asset.Entity> => {
         const consumingAsset = new Entity(null, configuration);
         const offChainStorageProperties =
@@ -80,7 +80,7 @@ export const getAllAssetsOwnedBy = async (owner: string, configuration: GeneralL
         .filter((asset: Entity) => asset.owner.address.toLowerCase() === owner.toLowerCase());
 };
 
-export class Entity extends Asset.Entity implements Asset.OnChainProperties {
+export class Entity extends Asset.Entity implements Asset.IOnChainProperties {
 
     getUrl(): string {
 

@@ -16,7 +16,7 @@
 
 import * as GeneralLib from 'ew-utils-general-lib';
 
-export interface OnChainProperties extends GeneralLib.BlockchainDataModelEntity.OnChainProperties {
+export interface IOnChainProperties extends GeneralLib.BlockchainDataModelEntity.OnChainProperties {
     // certificatesUsedForWh: number;
     smartMeter: GeneralLib.Configuration.EthAccount;
     owner: GeneralLib.Configuration.EthAccount;
@@ -27,7 +27,7 @@ export interface OnChainProperties extends GeneralLib.BlockchainDataModelEntity.
 
 }
 
-export interface OffChainProperties {
+export interface IOffChainProperties {
     operationalSince: number;
     capacityWh: number;
     country: string;
@@ -41,9 +41,9 @@ export interface OffChainProperties {
 }
 
 export abstract class Entity extends GeneralLib.BlockchainDataModelEntity.Entity
-    implements OnChainProperties {
+    implements IOnChainProperties {
 
-    offChainProperties: OffChainProperties;
+    offChainProperties: IOffChainProperties;
     certificatesUsedForWh: number;
     smartMeter: GeneralLib.Configuration.EthAccount;
     owner: GeneralLib.Configuration.EthAccount;

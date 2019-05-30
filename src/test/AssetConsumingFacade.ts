@@ -100,7 +100,7 @@ describe('AssetConsumingLogic Facade', () => {
             logger,
         };
 
-        const assetProps: Asset.ConsumingAsset.OnChainProperties = {
+        const assetProps: Asset.ConsumingAsset.IOnChainProperties = {
             certificatesUsedForWh: 0,
             smartMeter: { address: assetSmartmeter },
             owner: { address: assetOwnerAddress },
@@ -112,7 +112,7 @@ describe('AssetConsumingLogic Facade', () => {
             url: null,
         };
 
-        const assetPropsOffChain: Asset.Asset.OffChainProperties = {
+        const assetPropsOffChain: Asset.Asset.IOffChainProperties = {
             operationalSince: 10,
             capacityWh: 10,
             country: 'USA',
@@ -150,7 +150,7 @@ describe('AssetConsumingLogic Facade', () => {
 
     it('should fail when onboarding the same asset again', async () => {
 
-        const assetProps: Asset.ConsumingAsset.OnChainProperties = {
+        const assetProps: Asset.ConsumingAsset.IOnChainProperties = {
             certificatesUsedForWh: 0,
             smartMeter: { address: assetSmartmeter },
             owner: { address: assetOwnerAddress },
@@ -162,7 +162,7 @@ describe('AssetConsumingLogic Facade', () => {
             url: null,
         };
 
-        const assetPropsOffChain: Asset.Asset.OffChainProperties = {
+        const assetPropsOffChain: Asset.Asset.IOffChainProperties = {
             operationalSince: 10,
             capacityWh: 10,
             country: 'USA',

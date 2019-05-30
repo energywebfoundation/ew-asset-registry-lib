@@ -36,11 +36,11 @@ export enum Compliance {
     TIGR,
 }
 
-export interface OnChainProperties extends Asset.OnChainProperties {
+export interface IOnChainProperties extends Asset.IOnChainProperties {
     maxOwnerChanges?: number;
 }
 
-export interface OffChainProperties extends Asset.OffChainProperties {
+export interface IOffChainProperties extends Asset.IOffChainProperties {
     assetType: Type;
     complianceRegistry: Compliance;
     otherGreenAttributes: string;
@@ -69,8 +69,8 @@ export const getAllAssetsOwnedBy = async (owner: string, configuration: GeneralL
 };
 
 export const createAsset =
-    async (assetPropertiesOnChain: OnChainProperties,
-           assetPropertiesOffChain: OffChainProperties,
+    async (assetPropertiesOnChain: IOnChainProperties,
+           assetPropertiesOffChain: IOffChainProperties,
            configuration: GeneralLib.Configuration.Entity): Promise<Entity> => {
         const producingAsset = new Entity(null, configuration);
         const offChainStorageProperties =
@@ -107,12 +107,12 @@ export const createAsset =
 
     };
 
-export class Entity extends Asset.Entity implements OnChainProperties {
+export class Entity extends Asset.Entity implements IOnChainProperties {
 
     certificatesCreatedForWh: number;
     lastSmartMeterCO2OffsetRead: number;
     maxOwnerChanges: number;
-    offChainProperties: OffChainProperties;
+    offChainProperties: IOffChainProperties;
 
     getUrl(): string {
         const producingAssetLogicAddress = this.configuration.blockchainProperties.producingAssetLogicInstance.web3Contract._address;
