@@ -45,7 +45,6 @@ export interface IOffChainProperties extends Asset.IOffChainProperties {
     complianceRegistry: Compliance;
     otherGreenAttributes: string;
     typeOfPublicSupport: string;
-
 }
 
 export const getAssetListLength = async (configuration: GeneralLib.Configuration.Entity) => {
