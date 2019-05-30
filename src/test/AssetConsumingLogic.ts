@@ -258,7 +258,7 @@ describe('AssetConsumingLogic', () => {
             [matcher] as any,
             'propertiesDocumentHash',
             'urlString',
-            { privateKey: assetOwnerPK }
+            { privateKey: privateKeyDeployment }
         );
 
         const event = (await assetConsumingLogic.getAllLogAssetCreatedEvents({
