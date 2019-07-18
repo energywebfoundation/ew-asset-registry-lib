@@ -31,13 +31,13 @@
     "url": "git+https://github.com/energywebfoundation/ew-asset-registry-lib.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/energywebfoundation/ew-asset-registry-lib/issues"
   },
   "homepage": "https://github.com/energywebfoundation/ew-asset-registry-lib#readme",
   "dependencies": {
-    "ew-user-registry-lib": "energywebfoundation/ew-user-registry-lib#51875084259d76871aabad50a94dd23868369f4e",
+    "ew-user-registry-lib": "energywebfoundation/ew-user-registry-lib#b7b768a0e73069739176a0fc7089ce24c2ca241d",
     "ew-utils-general-lib": "1.0.2-alpha.3",
     "moment": "2.24.0",
     "web3": "1.0.0-beta.37",
