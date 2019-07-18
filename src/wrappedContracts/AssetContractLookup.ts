@@ -81,23 +81,7 @@ export class AssetContractLookup extends GeneralFunctions {
             );
         const transactionParams = await this.buildTransactionParams(method, txParams);
 
-        if (transactionParams.privateKey !== '') {
-            return await this.sendRaw(this.web3, transactionParams.privateKey, transactionParams);
-        } else {
-            return await this.web3Contract.methods
-                .init(
-                    _userRegistry,
-                    _assetProducingRegistry,
-                    _assetConsumingRegistry,
-                    _assetProducingDB,
-                    _assetConsumingDB
-                )
-                .send({
-                    from: transactionParams.from,
-                    gas: transactionParams.gas,
-                    gasPrice: transactionParams.gasPrice
-                });
-        }
+        return await this.send(method, transactionParams);
     }
 
     async assetConsumingRegistry(txParams?: SpecialTx) {
@@ -120,17 +104,7 @@ export class AssetContractLookup extends GeneralFunctions {
         const method = this.web3Contract.methods.changeOwner(_newOwner);
         const transactionParams = await this.buildTransactionParams(method, txParams);
 
-        if (transactionParams.privateKey !== '') {
-            return await this.sendRaw(this.web3, transactionParams.privateKey, transactionParams);
-        } else {
-            return await this.web3Contract.methods
-                .changeOwner(_newOwner)
-                .send({
-                    from: transactionParams.from,
-                    gas: transactionParams.gas,
-                    gasPrice: transactionParams.gasPrice
-                });
-        }
+        return await this.send(method, transactionParams);
     }
 
     async update(
@@ -141,16 +115,6 @@ export class AssetContractLookup extends GeneralFunctions {
         const method = this.web3Contract.methods.update(_assetProducingRegistry, _assetConsumingRegistry);
         const transactionParams = await this.buildTransactionParams(method, txParams);
 
-        if (transactionParams.privateKey !== '') {
-            return await this.sendRaw(this.web3, transactionParams.privateKey, transactionParams);
-        } else {
-            return await this.web3Contract.methods
-                .update(_assetProducingRegistry, _assetConsumingRegistry)
-                .send({
-                    from: transactionParams.from,
-                    gas: transactionParams.gas,
-                    gasPrice: transactionParams.gasPrice
-                });
-        }
+        return await this.send(method, transactionParams);
     }
 }

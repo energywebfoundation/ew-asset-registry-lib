@@ -79,34 +79,14 @@ export class AssetConsumingDB extends GeneralFunctions {
         const method = this.web3Contract.methods.setIsBundled(_assetId, _bundled);
         const transactionParams = await this.buildTransactionParams(method, txParams);
 
-        if (transactionParams.privateKey !== '') {
-            return await this.sendRaw(this.web3, transactionParams.privateKey, transactionParams);
-        } else {
-            return await this.web3Contract.methods
-                .setIsBundled(_assetId, _bundled)
-                .send({
-                    from: transactionParams.from,
-                    gas: transactionParams.gas,
-                    gasPrice: transactionParams.gasPrice
-                });
-        }
+        return await this.send(method, transactionParams);
     }
 
     async setAssetOwner(_assetId: number, _owner: string, txParams?: SpecialTx) {
         const method = this.web3Contract.methods.setAssetOwner(_assetId, _owner);
         const transactionParams = await this.buildTransactionParams(method, txParams);
 
-        if (transactionParams.privateKey !== '') {
-            return await this.sendRaw(this.web3, transactionParams.privateKey, transactionParams);
-        } else {
-            return await this.web3Contract.methods
-                .setAssetOwner(_assetId, _owner)
-                .send({
-                    from: transactionParams.from,
-                    gas: transactionParams.gas,
-                    gasPrice: transactionParams.gasPrice
-                });
-        }
+        return await this.send(method, transactionParams);
     }
 
     async setLastSmartMeterReadWh(
@@ -117,81 +97,35 @@ export class AssetConsumingDB extends GeneralFunctions {
         const method = this.web3Contract.methods.setLastSmartMeterReadWh(_assetId, _lastSmartMeterReadWh);
         const transactionParams = await this.buildTransactionParams(method, txParams);
 
-        if (transactionParams.privateKey !== '') {
-            return await this.sendRaw(this.web3, transactionParams.privateKey, transactionParams);
-        } else {
-            return await this.web3Contract.methods
-                .setLastSmartMeterReadWh(_assetId, _lastSmartMeterReadWh)
-                .send({
-                    from: transactionParams.from,
-                    gas: transactionParams.gas,
-                    gasPrice: transactionParams.gasPrice
-                });
-        }
+        return await this.send(method, transactionParams);
     }
 
     async addMatcher(_assetId: number, _matcher: string, txParams?: SpecialTx) {
         const method = this.web3Contract.methods.addMatcher(_assetId, _matcher);
         const transactionParams = await this.buildTransactionParams(method, txParams);
 
-        if (transactionParams.privateKey !== '') {
-            return await this.sendRaw(this.web3, transactionParams.privateKey, transactionParams);
-        } else {
-            return await this.web3Contract.methods
-                .addMatcher(_assetId, _matcher)
-                .send({
-                    from: transactionParams.from,
-                    gas: transactionParams.gas,
-                    gasPrice: transactionParams.gasPrice
-                });
-        }
+        return await this.send(method, transactionParams);
     }
 
     async setMatcherExternal(_assetId: number, _matcher: string[], txParams?: SpecialTx) {
         const method = this.web3Contract.methods.setMatcherExternal(_assetId, _matcher);
         const transactionParams = await this.buildTransactionParams(method, txParams);
 
-        if (transactionParams.privateKey !== '') {
-            return await this.sendRaw(this.web3, transactionParams.privateKey, transactionParams);
-        } else {
-            return await this.web3Contract.methods
-                .setMatcherExternal(_assetId, _matcher)
-                .send({
-                    from: transactionParams.from,
-                    gas: transactionParams.gas,
-                    gasPrice: transactionParams.gasPrice
-                });
-        }
+        return await this.send(method, transactionParams);
     }
 
     async removeMatcherExternal(_assetId: number, _removal: string, txParams?: SpecialTx) {
         const method = this.web3Contract.methods.removeMatcherExternal(_assetId, _removal);
         const transactionParams = await this.buildTransactionParams(method, txParams);
 
-        if (transactionParams.privateKey !== '') {
-            return await this.sendRaw(this.web3, transactionParams.privateKey, transactionParams);
-        } else {
-            return await this.web3Contract.methods
-                .removeMatcherExternal(_assetId, _removal)
-                .send({
-                    from: transactionParams.from,
-                    gas: transactionParams.gas,
-                    gasPrice: transactionParams.gasPrice
-                });
-        }
+        return await this.send(method, transactionParams);
     }
 
     async setMatcher(_assetId: number, _matcher: string[], txParams?: SpecialTx) {
         const method = this.web3Contract.methods.setMatcher(_assetId, _matcher);
         const transactionParams = await this.buildTransactionParams(method, txParams);
 
-        if (transactionParams.privateKey !== '') {
-            return await this.sendRaw(this.web3, transactionParams.privateKey, transactionParams);
-        } else {
-            return await this.web3Contract.methods
-                .setMatcher(_assetId, _matcher)
-                .send({ from: transactionParams.from, gas: transactionParams.gas });
-        }
+        return await this.send(method, transactionParams);
     }
 
     async setLastSmartMeterReadFileHash(
@@ -202,17 +136,7 @@ export class AssetConsumingDB extends GeneralFunctions {
         const method = this.web3Contract.methods.setLastSmartMeterReadFileHash(_assetId, _lastSmartMeterReadFileHash);
         const transactionParams = await this.buildTransactionParams(method, txParams);
 
-        if (transactionParams.privateKey !== '') {
-            return await this.sendRaw(this.web3, transactionParams.privateKey, transactionParams);
-        } else {
-            return await this.web3Contract.methods
-                .setLastSmartMeterReadFileHash(_assetId, _lastSmartMeterReadFileHash)
-                .send({
-                    from: transactionParams.from,
-                    gas: transactionParams.gas,
-                    gasPrice: transactionParams.gasPrice
-                });
-        }
+        return await this.send(method, transactionParams);
     }
 
     async setMarketLookupContract(
@@ -223,17 +147,7 @@ export class AssetConsumingDB extends GeneralFunctions {
         const method = this.web3Contract.methods.setMarketLookupContract(_assetId, _marketLookupContract);
         const transactionParams = await this.buildTransactionParams(method, txParams);
 
-        if (transactionParams.privateKey !== '') {
-            return await this.sendRaw(this.web3, transactionParams.privateKey, transactionParams);
-        } else {
-            return await this.web3Contract.methods
-                .setMarketLookupContract(_assetId, _marketLookupContract)
-                .send({
-                    from: transactionParams.from,
-                    gas: transactionParams.gas,
-                    gasPrice: transactionParams.gasPrice
-                });
-        }
+        return await this.send(method, transactionParams);
     }
 
     async setSmartMeterRead(
@@ -245,17 +159,7 @@ export class AssetConsumingDB extends GeneralFunctions {
         const method = this.web3Contract.methods.setSmartMeterRead(_assetId, _lastSmartMeterReadWh, _lastSmartMeterReadFileHash);
         const transactionParams = await this.buildTransactionParams(method, txParams);
 
-        if (transactionParams.privateKey !== '') {
-            return await this.sendRaw(this.web3, transactionParams.privateKey, transactionParams);
-        } else {
-            return await this.web3Contract.methods
-                .setSmartMeterRead(_assetId, _lastSmartMeterReadWh, _lastSmartMeterReadFileHash)
-                .send({
-                    from: transactionParams.from,
-                    gas: transactionParams.gas,
-                    gasPrice: transactionParams.gasPrice
-                });
-        }
+        return await this.send(method, transactionParams);
     }
 
     async getAssetOwner(_assetId: number, txParams?: SpecialTx) {
@@ -270,34 +174,14 @@ export class AssetConsumingDB extends GeneralFunctions {
         const method = this.web3Contract.methods.changeOwner(_newOwner);
         const transactionParams = await this.buildTransactionParams(method, txParams);
 
-        if (transactionParams.privateKey !== '') {
-            return await this.sendRaw(this.web3, transactionParams.privateKey, transactionParams);
-        } else {
-            return await this.web3Contract.methods
-                .changeOwner(_newOwner)
-                .send({
-                    from: transactionParams.from,
-                    gas: transactionParams.gas,
-                    gasPrice: transactionParams.gasPrice
-                });
-        }
+        return await this.send(method, transactionParams);
     }
 
     async removeMatcher(_assetId: number, _removal: string, txParams?: SpecialTx) {
         const method = this.web3Contract.methods.removeMatcher(_assetId, _removal);
         const transactionParams = await this.buildTransactionParams(method, txParams);
 
-        if (transactionParams.privateKey !== '') {
-            return await this.sendRaw(this.web3, transactionParams.privateKey, transactionParams);
-        } else {
-            return await this.web3Contract.methods
-                .removeMatcher(_assetId, _removal)
-                .send({
-                    from: transactionParams.from,
-                    gas: transactionParams.gas,
-                    gasPrice: transactionParams.gasPrice
-                });
-        }
+        return await this.send(method, transactionParams);
     }
 
     async getAssetGeneral(_assetId: number, txParams?: SpecialTx) {
@@ -316,17 +200,7 @@ export class AssetConsumingDB extends GeneralFunctions {
         const method = this.web3Contract.methods.addFullAsset(_a);
         const transactionParams = await this.buildTransactionParams(method, txParams);
 
-        if (transactionParams.privateKey !== '') {
-            return await this.sendRaw(this.web3, transactionParams.privateKey, transactionParams);
-        } else {
-            return await this.web3Contract.methods
-                .addFullAsset(_a)
-                .send({
-                    from: transactionParams.from,
-                    gas: transactionParams.gas,
-                    gasPrice: transactionParams.gasPrice
-                });
-        }
+        return await this.send(method, transactionParams);
     }
 
     async getActive(_assetId: number, txParams?: SpecialTx) {
@@ -341,17 +215,7 @@ export class AssetConsumingDB extends GeneralFunctions {
         const method = this.web3Contract.methods.setActive(_assetId, _active);
         const transactionParams = await this.buildTransactionParams(method, txParams);
 
-        if (transactionParams.privateKey !== '') {
-            return await this.sendRaw(this.web3, transactionParams.privateKey, transactionParams);
-        } else {
-            return await this.web3Contract.methods
-                .setActive(_assetId, _active)
-                .send({
-                    from: transactionParams.from,
-                    gas: transactionParams.gas,
-                    gasPrice: transactionParams.gasPrice
-                });
-        }
+        return await this.send(method, transactionParams);
     }
 
     async getSmartMeter(_assetId: number, txParams?: SpecialTx) {
