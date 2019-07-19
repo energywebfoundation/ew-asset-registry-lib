@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/energywebfoundation/ew-asset-registry-lib#readme",
   "dependencies": {
-    "ew-user-registry-lib": "energywebfoundation/ew-user-registry-lib#4127bc19acbea7bb84abbb8c053b359d2575a66e",
+    "ew-user-registry-lib": "energywebfoundation/ew-user-registry-lib#b9ad72196531d56995e1ad0509f58ca8f9aab053",
     "ew-utils-general-lib": "1.0.2-alpha.3",
     "moment": "2.24.0",
     "web3": "1.0.0-beta.37",
