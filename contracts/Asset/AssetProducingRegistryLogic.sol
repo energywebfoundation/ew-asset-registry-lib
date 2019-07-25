@@ -24,6 +24,7 @@ import "../Interfaces/OriginMarketContractLookupInterface.sol";
 import "../Asset/AssetLogic.sol";
 import "ew-utils-general-lib/contracts/Msc/Owned.sol";
 import "../Interfaces/AssetProducingInterface.sol";
+import "../Interfaces/TradableEntityCreationInterface.sol";
 
 
 /// @title The logic contract for the asset registration
@@ -73,12 +74,19 @@ contract AssetProducingRegistryLogic is AssetLogic, AssetProducingInterface {
             timestamp = block.timestamp;
         }
 
+        AssetProducingDB.Asset memory asset = AssetProducingDB(address(db)).getAssetById(_assetId);
+
         uint createdEnergy = setSmartMeterReadInternal(_assetId, _newMeterRead, _lastSmartMeterReadFileHash, timestamp);
 
         AssetProducingDB(address(db)).addAssetRead(_assetId, AssetProducingDB.SmartMeterRead({
             energy: createdEnergy,
             timestamp: timestamp
         }));
+
+        TradableEntityCreationInterface(OriginMarketContractLookupInterface(asset.assetGeneral.marketLookupContract).originLogicRegistry()).createTradableEntity(	    
+                _assetId,	
+                createdEnergy
+        );
     }
 
 	/// @notice creates an asset with the provided parameters
