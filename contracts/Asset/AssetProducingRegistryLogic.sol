@@ -62,7 +62,10 @@ contract AssetProducingRegistryLogic is AssetLogic, AssetProducingInterface {
         uint _newMeterRead,
         string calldata _lastSmartMeterReadFileHash,
         uint _timestamp,
-        uint _supplyId
+        uint _supplyId,
+        uint _averagePower,
+        uint _powerProfileURL,
+        uint _powerProfileHash
     )
         external
         isInitialized
