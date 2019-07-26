@@ -25,6 +25,7 @@ import "../Asset/AssetLogic.sol";
 import "ew-utils-general-lib/contracts/Msc/Owned.sol";
 import "../Interfaces/AssetProducingInterface.sol";
 import "../Interfaces/TradableEntityCreationInterface.sol";
+import "../Interfaces/MarketInterface.sol";
 
 
 /// @title The logic contract for the asset registration
@@ -60,7 +61,8 @@ contract AssetProducingRegistryLogic is AssetLogic, AssetProducingInterface {
         uint _assetId,
         uint _newMeterRead,
         string calldata _lastSmartMeterReadFileHash,
-        uint _timestamp
+        uint _timestamp,
+        uint _supplyId
     )
         external
         isInitialized
@@ -69,6 +71,7 @@ contract AssetProducingRegistryLogic is AssetLogic, AssetProducingInterface {
 
         require(timestamp >= 0, "a timestamp cannot be a negative number");
         require(timestamp <= block.timestamp + 60, "a timestamp cannot be higher than current block time plus 1 min");
+        require(_supplyId >= 0, "supplyId has to be specified");
 
         if (timestamp == 0) {
             timestamp = block.timestamp;
@@ -85,8 +88,11 @@ contract AssetProducingRegistryLogic is AssetLogic, AssetProducingInterface {
 
         TradableEntityCreationInterface(OriginMarketContractLookupInterface(asset.assetGeneral.marketLookupContract).originLogicRegistry()).createTradableEntity(	    
                 _assetId,	
-                createdEnergy
+                createdEnergy,
+                _supplyId
         );
+
+        MarketInterface(OriginMarketContractLookupInterface(asset.assetGeneral.marketLookupContract).marketLogicRegistry()).incrementSupplyPower(_supplyId, createdEnergy);
     }
 
 	/// @notice creates an asset with the provided parameters

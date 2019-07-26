@@ -20,5 +20,6 @@ pragma solidity ^0.5.0;
 interface OriginMarketContractLookupInterface {
 
     function originLogicRegistry() external view returns (address);
+    function marketLogicRegistry() external view returns (address);
 
 }
