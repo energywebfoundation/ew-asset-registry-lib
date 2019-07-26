@@ -64,8 +64,8 @@ contract AssetProducingRegistryLogic is AssetLogic, AssetProducingInterface {
         uint _timestamp,
         uint _supplyId,
         uint _averagePower,
-        uint _powerProfileURL,
-        uint _powerProfileHash
+        string calldata _powerProfileURL,
+        string calldata _powerProfileHash
     )
         external
         isInitialized

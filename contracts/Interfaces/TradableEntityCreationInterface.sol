@@ -6,7 +6,7 @@ interface TradableEntityCreationInterface {
      function createTradableEntity(
         uint _assetId, uint _powerInW, uint _supplyId,
         uint _averagePower,
-        uint _powerProfileURL,
-        uint _powerProfileHash     
+        string calldata _powerProfileURL,
+        string calldata _powerProfileHash     
     ) external returns (uint);	
 }
