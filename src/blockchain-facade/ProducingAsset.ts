@@ -152,13 +152,14 @@ export class Entity extends Asset.Entity implements IOnChainProperties {
         return this;
     }
 
-    async saveSmartMeterRead(meterReading: number, filehash: string, timestamp: number = moment().unix()): Promise<TransactionReceipt> {
+    async saveSmartMeterRead(meterReading: number, filehash: string, timestamp: number = moment().unix(), supplyId: number): Promise<TransactionReceipt> {
         if (this.configuration.blockchainProperties.activeUser.privateKey) {
             return this.configuration.blockchainProperties.producingAssetLogicInstance.saveSmartMeterRead(
                 this.id,
                 meterReading,
                 filehash,
                 timestamp,
+                supplyId,
                 { privateKey: this.configuration.blockchainProperties.activeUser.privateKey },
             );
         }
@@ -168,6 +169,7 @@ export class Entity extends Asset.Entity implements IOnChainProperties {
                 meterReading,
                 filehash,
                 timestamp,
+                supplyId,
                 { from: this.configuration.blockchainProperties.activeUser.address },
             );
         }
