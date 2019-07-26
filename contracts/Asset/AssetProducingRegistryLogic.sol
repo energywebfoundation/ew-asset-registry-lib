@@ -88,7 +88,8 @@ contract AssetProducingRegistryLogic is AssetLogic, AssetProducingInterface {
 
         TradableEntityCreationInterface(OriginMarketContractLookupInterface(asset.assetGeneral.marketLookupContract).originLogicRegistry()).createTradableEntity(	    
                 _assetId,	
-                createdEnergy
+                createdEnergy,
+                _supplyId
         );
 
         // MarketInterface(OriginMarketContractLookupInterface(asset.assetGeneral.marketLookupContract).originLogicRegistry());
