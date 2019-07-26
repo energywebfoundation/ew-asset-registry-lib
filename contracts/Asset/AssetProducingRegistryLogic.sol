@@ -88,11 +88,12 @@ contract AssetProducingRegistryLogic is AssetLogic, AssetProducingInterface {
 
         TradableEntityCreationInterface(OriginMarketContractLookupInterface(asset.assetGeneral.marketLookupContract).originLogicRegistry()).createTradableEntity(	    
                 _assetId,	
-                createdEnergy,
-                _supplyId
+                createdEnergy
         );
 
-        MarketInterface(OriginMarketContractLookupInterface(asset.assetGeneral.marketLookupContract).marketLogicRegistry()).incrementSupplyPower(_supplyId, createdEnergy);
+        // MarketInterface(OriginMarketContractLookupInterface(asset.assetGeneral.marketLookupContract).originLogicRegistry());
+
+        MarketInterface(OriginMarketContractLookupInterface(asset.assetGeneral.realMarketLookupContract).marketLogicRegistry()).incrementSupplyPower(_supplyId, createdEnergy);
     }
 
 	/// @notice creates an asset with the provided parameters
@@ -128,7 +129,8 @@ contract AssetProducingRegistryLogic is AssetLogic, AssetProducingInterface {
             propertiesDocumentHash: _propertiesDocumentHash,
             url: _url,
             marketLookupContract: address(0x0),
-            bundled: false
+            bundled: false,
+            realMarketLookupContract: address(0x0)
         });
 
         AssetProducingDB.Asset memory _asset = AssetProducingDB.Asset(

@@ -86,6 +86,7 @@ interface AssetDbInterface {
 	/// @param _assetId the id of an asset
 	/// @param _marketLookupContract new marketLookup contract
     function setMarketLookupContract(uint _assetId, address _marketLookupContract) external;
+    function setRealMarketLookupContract(uint _assetId, address _marketLookupContract) external;
 
 	/// @notice gets the marketLookup contract
 	/// @param _assetId the id of an asset

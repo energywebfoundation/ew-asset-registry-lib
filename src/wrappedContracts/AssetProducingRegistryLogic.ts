@@ -230,6 +230,16 @@ export class AssetProducingRegistryLogic extends GeneralFunctions {
         return await this.send(method, txParams);
     }
 
+    async setRealMarketLookupContract(
+        _assetId: number,
+        _marketContractLookup: string,
+        txParams?: SpecialTx
+    ) {
+        const method = this.web3Contract.methods.setRealMarketLookupContract(_assetId, _marketContractLookup);
+
+        return await this.send(method, txParams);
+    }
+
     async getAssetOwner(_assetId: number, txParams?: SpecialTx) {
         return await this.web3Contract.methods.getAssetOwner(_assetId).call(txParams);
     }

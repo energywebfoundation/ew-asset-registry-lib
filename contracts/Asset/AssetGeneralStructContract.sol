@@ -29,6 +29,7 @@ contract AssetGeneralStructContract {
         string propertiesDocumentHash;
         string url;
         address marketLookupContract;
+        address realMarketLookupContract;
         bool bundled;
     }
 

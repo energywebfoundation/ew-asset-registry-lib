@@ -115,6 +115,7 @@ contract AssetConsumingRegistryLogic is AssetLogic, AssetConsumingInterface {
             propertiesDocumentHash: _propertiesDocumentHash,
             url: _url,
             marketLookupContract: address(0x0),
+            realMarketLookupContract: address(0x0),
             bundled: false
         });
 

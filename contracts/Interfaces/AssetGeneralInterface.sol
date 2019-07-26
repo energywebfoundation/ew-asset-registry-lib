@@ -21,6 +21,7 @@ pragma experimental ABIEncoderV2;
 interface AssetGeneralInterface {
     function setActive(uint _assetId, bool _active) external;
     function setMarketLookupContract(uint _assetId, address _marketContractLookup) external;
+    function setRealMarketLookupContract(uint _assetId, address _marketContractLookup) external;
     function getMarketLookupContract(uint _assetId) external view returns (address);
     function getAssetListLength() external view returns (uint);
     function getLastMeterReadingAndHash(uint _assetId) external view returns (uint _lastSmartMeterReadWh, string memory _lastSmartMeterReadFileHash);
@@ -28,5 +29,5 @@ interface AssetGeneralInterface {
     function addMatcher(uint _assetId, address _new) external ;
     function getMatcher(uint _assetId) external view returns(address[] memory);
     function removeMatcher(uint _assetId, address _remove) external;
-    function getAssetGeneral(uint _assetId) external view returns (address smartMeter, address owner, uint lastSmartMeterReadWh, bool active, string memory lastSmartMeterReadFileHash, address[] memory matcher, string memory propertiesDocumentHash, string memory url, address marketLookupContract, bool bundled);
+    function getAssetGeneral(uint _assetId) external view returns (address smartMeter, address owner, uint lastSmartMeterReadWh, bool active, string memory lastSmartMeterReadFileHash, address[] memory matcher, string memory propertiesDocumentHash, string memory url, address marketLookupContract, bool bundled, address realMarketLookupContract);
 }

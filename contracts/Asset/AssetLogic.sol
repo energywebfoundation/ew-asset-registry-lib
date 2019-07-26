@@ -94,6 +94,13 @@ contract AssetLogic is RoleManagement, Updatable, AssetGeneralInterface, AssetGe
         db.setMarketLookupContract(_assetId, _marketContractLookup);
     }
 
+    function setRealMarketLookupContract(uint _assetId, address _marketContractLookup)
+        external
+    {
+        require(msg.sender == db.getAssetOwner(_assetId),"sender is not the assetOwner");
+        db.setRealMarketLookupContract(_assetId, _marketContractLookup);
+    }
+
 	/// @notice Updates the logic contract
 	/// @param _newLogic address of the new logic contract
     function update(address _newLogic)
@@ -219,7 +226,8 @@ contract AssetLogic is RoleManagement, Updatable, AssetGeneralInterface, AssetGe
         string memory propertiesDocumentHash,
         string memory url,
         address marketLookupContract,
-        bool bundled
+        bool bundled,
+        address realMarketLookupContract
     )
     {
         AssetGeneral memory a = db.getAssetGeneral(_assetId);
@@ -233,6 +241,7 @@ contract AssetLogic is RoleManagement, Updatable, AssetGeneralInterface, AssetGe
         propertiesDocumentHash = a.propertiesDocumentHash;
         url = a.url;
         marketLookupContract = a.marketLookupContract;
+        realMarketLookupContract = a.realMarketLookupContract;
         bundled = a.bundled;
     }
 

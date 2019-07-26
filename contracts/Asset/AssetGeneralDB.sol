@@ -99,6 +99,10 @@ contract AssetGeneralDB is Owned, AssetGeneralStructContract, AssetDbInterface {
         getAssetGeneralInternal(_assetId).marketLookupContract = _marketLookupContract;
     }
 
+    function setRealMarketLookupContract(uint _assetId, address _marketLookupContract) external onlyOwner {
+        getAssetGeneralInternal(_assetId).realMarketLookupContract = _marketLookupContract;
+    }
+
     /// @notice set the meterreading and the filehash at the same time
     /// @dev can be used to save gas-costs when setting a meterreading in the logic contract
     /// @param _assetId the id of an asset
