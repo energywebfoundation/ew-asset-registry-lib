@@ -270,9 +270,16 @@ export class AssetProducingRegistryLogic extends GeneralFunctions {
         _lastSmartMeterReadFileHash: string,
         _timestamp: number = moment().unix(),
         _supplyId: number,
+        _averagePower: number,
+        _powerProfileURL: string,
+        _powerProfileHash: string,
         txParams?: SpecialTx
     ) {
-        const method = this.web3Contract.methods.saveSmartMeterRead(_assetId, _newMeterRead, _lastSmartMeterReadFileHash, _timestamp, _supplyId);
+        const method = this.web3Contract.methods.saveSmartMeterRead(_assetId, _newMeterRead, _lastSmartMeterReadFileHash, _timestamp, _supplyId,
+            _averagePower,
+            _powerProfileURL,
+            _powerProfileHash    
+        );
 
         return await this.send(method, txParams);
     }

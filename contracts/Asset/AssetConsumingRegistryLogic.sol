@@ -56,16 +56,7 @@ contract AssetConsumingRegistryLogic is AssetLogic, AssetConsumingInterface {
     function saveSmartMeterRead(uint _assetId, uint _newMeterRead, string calldata _lastSmartMeterReadFileHash, uint _timestamp)
         external
     {
-        uint timestamp = _timestamp;
-
-        require(timestamp >= 0, "a timestamp cannot be a negative number");
-        require(timestamp <= block.timestamp + 60, "a timestamp cannot be higher than current block time plus 1 min");
-
-        if (timestamp == 0) {
-            timestamp = block.timestamp;
-        }
-
-        setSmartMeterReadInternal(_assetId, _newMeterRead, _lastSmartMeterReadFileHash, timestamp);
+       
     }
 
     /// @notice function to get an asset by its id
