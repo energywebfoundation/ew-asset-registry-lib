@@ -90,14 +90,12 @@ contract AssetLogic is RoleManagement, Updatable, AssetGeneralInterface, AssetGe
     function setMarketLookupContract(uint _assetId, address _marketContractLookup)
         external
     {
-        require(msg.sender == db.getAssetOwner(_assetId),"sender is not the assetOwner");
         db.setMarketLookupContract(_assetId, _marketContractLookup);
     }
 
     function setRealMarketLookupContract(uint _assetId, address _marketContractLookup)
         external
     {
-        require(msg.sender == db.getAssetOwner(_assetId),"sender is not the assetOwner");
         db.setRealMarketLookupContract(_assetId, _marketContractLookup);
     }
 
