@@ -15,13 +15,11 @@
 // @authors: slock.it GmbH; Heiko Burkhardt, heiko.burkhardt@slock.it; Martin Kuechler, martin.kuchler@slock.it
 
 import { Configuration } from 'ew-utils-general-lib';
-import * as Winston from 'winston';
 import Web3 from 'web3';
 import { createBlockchainProperties as userCreateBlockchainProperties} from 'ew-user-registry-lib';
 import { AssetContractLookup, AssetConsumingRegistryLogic, AssetProducingRegistryLogic } from '..';
 
 export const createBlockchainProperties = async (
-    logger: Winston.Logger,
     web3: Web3,
     assetContractLookupAddress: string,
 ): Promise<Configuration.BlockchainProperties> => {
@@ -32,7 +30,6 @@ export const createBlockchainProperties = async (
 
     const userBlockchainProperties: Configuration.BlockchainProperties =
         await userCreateBlockchainProperties(
-            logger,
             web3 as any,
             await assetLookupContractInstance.userRegistry(),
         ) as any;
@@ -47,8 +44,6 @@ export const createBlockchainProperties = async (
             await assetLookupContractInstance.assetProducingRegistry(),
             ),
         userLogicInstance: userBlockchainProperties.userLogicInstance,
-
         web3: web3 as any,
-
     };
 };
