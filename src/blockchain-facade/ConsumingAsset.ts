@@ -84,8 +84,9 @@ export const getAllAssetsOwnedBy = async (owner: string, configuration: Configur
 export class Entity extends Asset.Entity implements Asset.IOnChainProperties {
 
     getUrl(): string {
-
-        return `${this.configuration.offChainDataSource.baseUrl}/ConsumingAsset`;
+        const consumingAssetLogicAddress = this.configuration.blockchainProperties.consumingAssetLogicInstance.web3Contract._address;
+    
+        return `${this.configuration.offChainDataSource.baseUrl}/ConsumingAsset/${consumingAssetLogicAddress}`;
     }
 
     async sync(): Promise<Entity> {
