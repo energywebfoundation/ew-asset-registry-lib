@@ -143,7 +143,7 @@ describe('AssetConsumingLogic Facade', () => {
             lastSmartMeterReadFileHash: '',
             matcher: [{ address: [matcher] }],
             offChainProperties: assetPropsOffChain,
-            url: 'http://localhost:3030/ConsumingAsset',
+            url: `http://localhost:3030/ConsumingAsset/${conf.blockchainProperties.consumingAssetLogicInstance.web3Contract._address}`,
         } as any,        asset);
         assert.equal(await ConsumingAsset.getAssetListLength(conf), 1);
 
@@ -214,7 +214,7 @@ describe('AssetConsumingLogic Facade', () => {
             active: true,
             lastSmartMeterReadFileHash: 'newFileHash',
             matcher: [{ address: [matcher] }],
-            url: 'http://localhost:3030/ConsumingAsset',
+            url: `http://localhost:3030/ConsumingAsset/${conf.blockchainProperties.consumingAssetLogicInstance.web3Contract._address}`,
             offChainProperties:
             {
                 operationalSince: 10,
