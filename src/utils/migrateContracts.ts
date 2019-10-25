@@ -26,6 +26,8 @@ import {
     AssetProducingRegistryLogicJSON
 } from '..';
 
+const gasPrice = '1000000000';
+
 export async function migrateAssetRegistryContracts(
     web3: Web3,
     userContractLookup: string,
@@ -39,7 +41,7 @@ export async function migrateAssetRegistryContracts(
         const assetContractLookupAddress = (await deploy(
             web3,
             (AssetContractLookupJSON as any).bytecode,
-            { privateKey: privateKeyDeployment }
+            { privateKey: privateKeyDeployment, gasPrice }
         )).contractAddress;
 
         const assetConsumingLogicAddress = (await deploy(
@@ -51,14 +53,14 @@ export async function migrateAssetRegistryContracts(
                         [userContractLookup, assetContractLookupAddress]
                     )
                     .substr(2),
-            { privateKey: privateKeyDeployment }
+            { privateKey: privateKeyDeployment, gasPrice }
         )).contractAddress;
 
         const assetConsumingDBAddress = (await deploy(
             web3,
             (AssetConsumingDBJSON as any).bytecode +
                 web3.eth.abi.encodeParameter('address', assetConsumingLogicAddress).substr(2),
-            { privateKey: privateKeyDeployment }
+            { privateKey: privateKeyDeployment, gasPrice }
         )).contractAddress;
 
         const assetProducingLogicAddress = (await deploy(
@@ -70,14 +72,14 @@ export async function migrateAssetRegistryContracts(
                         [userContractLookup, assetContractLookupAddress]
                     )
                     .substr(2),
-            { privateKey: privateKeyDeployment }
+            { privateKey: privateKeyDeployment, gasPrice }
         )).contractAddress;
 
         const assetProducingDBAddress = (await deploy(
             web3,
             (AssetProducingDBJSON as any).bytecode +
                 web3.eth.abi.encodeParameter('address', assetProducingLogicAddress).substr(2),
-            { privateKey: privateKeyDeployment }
+            { privateKey: privateKeyDeployment, gasPrice }
         )).contractAddress;
 
         const assetContractLookup: AssetContractLookup = new AssetContractLookup(
@@ -91,7 +93,7 @@ export async function migrateAssetRegistryContracts(
             assetConsumingLogicAddress,
             assetProducingDBAddress,
             assetConsumingDBAddress,
-            { privateKey: privateKeyDeployment }
+            { privateKey: privateKeyDeployment, gasPrice }
         );
 
         const resultMapping = {} as any;

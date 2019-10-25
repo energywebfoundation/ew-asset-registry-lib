@@ -93,6 +93,7 @@ export const createAsset =
             {
                 from: configuration.blockchainProperties.activeUser.address,
                 privateKey: configuration.blockchainProperties.activeUser.privateKey,
+                gasPrice: '1000000000'
             },
         );
 
