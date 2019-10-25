@@ -21,6 +21,8 @@ import { TransactionReceipt } from 'web3/types';
 import moment from 'moment';
 import { AssetProducingRegistryLogic } from '../wrappedContracts/AssetProducingRegistryLogic';
 
+const GAS_PRICE = '1000000000';
+
 /**
  * TODO: in generalLib
  */
@@ -168,7 +170,7 @@ export class Entity extends Asset.Entity implements IOnChainProperties {
                 _averagePower,
                 _powerProfileURL,
                 _powerProfileHash,
-                { privateKey: this.configuration.blockchainProperties.activeUser.privateKey },
+                { privateKey: this.configuration.blockchainProperties.activeUser.privateKey, gasPrice: GAS_PRICE },
             );
         }
         else {
@@ -181,7 +183,7 @@ export class Entity extends Asset.Entity implements IOnChainProperties {
                 _averagePower,
                 _powerProfileURL,
                 _powerProfileHash,
-                { from: this.configuration.blockchainProperties.activeUser.address },
+                { from: this.configuration.blockchainProperties.activeUser.address, gasPrice: GAS_PRICE },
             );
         }
     }
